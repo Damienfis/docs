@@ -15,14 +15,10 @@ on:
         - info
         - warning
         - debug {% endif %}
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true {% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5511 %}
-        type: boolean {% endif %}
       tags:
         description: 'Test scenario tags'
-        required: true {% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5511 %}
-        type: string
+        required: false {% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5511 %}
+        type: boolean
       environment:
         description: 'Environment to run tests against'
         type: environment
@@ -31,7 +27,7 @@ on:
 jobs:
   print-tag:
     runs-on: ubuntu-latest
-    if: {% raw %} ${{ github.event.inputs.print_tags == 'true' }} {% endraw %}
+
     steps:
       - name: Print the input tag to STDOUT
         run: echo {% raw %} The tag is ${{ github.event.inputs.tag }} {% endraw %}

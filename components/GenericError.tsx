@@ -3,9 +3,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { MarkGithubIcon, CommentDiscussionIcon } from '@primer/octicons-react'
+import { useVersion } from 'components/hooks/useVersion'
 import { Lead } from 'components/ui/Lead'
 
 export function GenericError() {
+  const { isEnterprise } = useVersion()
+
   return (
     <div className="min-h-screen d-flex flex-column">
       <Head>
@@ -25,7 +28,11 @@ export function GenericError() {
           </p>
           <a
             id="contact-us"
-            href="https://support.github.com/contact"
+            href={
+              isEnterprise
+                ? 'https://enterprise.github.com/support'
+                : 'https://support.github.com/contact'
+            }
             className="btn btn-outline mt-2"
           >
             <CommentDiscussionIcon size="small" className="octicon mr-1" />
