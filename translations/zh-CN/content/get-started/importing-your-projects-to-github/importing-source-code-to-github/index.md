@@ -18,7 +18,7 @@ children:
   - /importing-a-repository-with-github-importer
   - /updating-commit-author-attribution-with-github-importer
   - /importing-a-git-repository-using-the-command-line
-  - /adding-locally-hosted-code-to-github
+  - /adding-an-existing-project-to-github-using-the-command-line
   - /source-code-migration-tools
 shortTitle: 导入代码到 GitHub
 ---

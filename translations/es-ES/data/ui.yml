@@ -80,7 +80,6 @@ contribution_cta:
 products:
   graphql:
     reference:
-      implements: Implements
       fields: Campos
       arguments: Argumentos
       name: Nombre

@@ -50,7 +50,7 @@ export function CodeBlock({ verb, headingLang, codeBlock, highlight }: Props) {
       >
         <code>
           {verb && (
-            <span className="color-bg-accent-emphasis color-fg-on-emphasis rounded-1 text-uppercase p-1">
+            <span className="color-bg-accent-emphasis color-fg-on-emphasis rounded-1 text-uppercase">
               {verb}
             </span>
           )}{' '}

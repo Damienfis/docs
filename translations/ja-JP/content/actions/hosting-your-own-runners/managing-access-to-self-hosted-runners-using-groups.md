@@ -9,12 +9,11 @@ versions:
   ghae: '*'
   ghec: '*'
 type: tutorial
-shortTitle: Manage access to runners
+shortTitle: Manage runner groups
 ---
 
 {% data reusables.actions.enterprise-beta %}
 {% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.restrict-runner-workflow-beta %}
 
 ## セルフホストランナーのグループについて
 
@@ -32,10 +31,9 @@ Self-hosted runner groups are used to control access to self-hosted runners. Org
 {% endif %}
 
 {% ifversion ghec or ghes or ghae %}
-セルフホストランナーグループは、Organization レベルおよび Enterprise レベルでセルフホストランナーへのアクセスを制御するために使用されます。 Enterprise owners can configure access policies that control which organizations
-{% if restrict-groups-to-workflows %}and workflows {% endif %}in an enterprise have access to the runner group. Organization owners can configure access policies that control which repositories{% if restrict-groups-to-workflows %} and workflows{% endif %} in an organization have access to the runner group.
+セルフホストランナーグループは、Organization レベルおよび Enterprise レベルでセルフホストランナーへのアクセスを制御するために使用されます。 Enterprise の管理者は、Enterprise 内のどの Organization がランナーグループにアクセスできるかを制御するアクセスポリシーを設定できます。 Organization の管理者は、Organization 内のどのリポジトリがランナーグループにアクセスできるかを制御するアクセスポリシーを設定できます。
 
-When an enterprise owner grants an organization access to a runner group, organization owners can see the runner group listed in the organization's self-hosted runner settings. The organization owners can then assign additional granular repository{% if restrict-groups-to-workflows %} and workflow{% endif %} access policies to the enterprise runner group.
+Enterprise の管理者が Organization にランナーグループへのアクセスを許可すると、Organization の管理者は、Organization のセルフホストランナー設定にリストされたランナーグループを表示できます。 Organization の管理者は、追加の詳細なリポジトリアクセスポリシーを Enterprise ランナーグループに割り当てることができます。
 
 新しいランナーが作成されると、それらは自動的にデフォルトグループに割り当てられます。 ランナーは一度に1つのグループにのみ参加できます。 ランナーはデフォルトグループから別のグループに移動できます。 詳しい情報については、「[セルフホストランナーをグループに移動する](#moving-a-self-hosted-runner-to-a-group)」を参照してください。
 
@@ -45,14 +43,13 @@ When an enterprise owner grants an organization access to a runner group, organi
 
 セルフホストランナーは、作成時にデフォルトグループに自動的に割り当てられ、一度に 1 つのグループのメンバーになることができます。 ランナーはデフォルトグループから作成した任意のグループに移動できます。
 
-When creating a group, you must choose a policy that defines which repositories{% if restrict-groups-to-workflows %} and workflows{% endif %} have access to the runner group.
+グループを作成する場合、ランナーグループにアクセスできるリポジトリを定義するポリシーを選択する必要があります。
 
 {% ifversion ghec or ghes > 3.3 or ghae-issue-5091 %}
 {% data reusables.organizations.navigate-to-org %}
 {% data reusables.organizations.org_settings %}
 {% data reusables.actions.settings-sidebar-actions-runner-groups %}
 1. In the "Runner groups" section, click **New runner group**.
-1. Enter a name for your runner group.
  {% data reusables.actions.runner-group-assign-policy-repo %}
 
    {% warning %}
@@ -62,7 +59,6 @@ When creating a group, you must choose a policy that defines which repositories{
    詳しい情報については「[セルフホストランナーについて](/actions/hosting-your-own-runners/about-self-hosted-runners#self-hosted-runner-security-with-public-repositories)」を参照してください。
 
    {% endwarning %}
-{% data reusables.actions.runner-group-assign-policy-workflow %}{%- if restrict-groups-to-workflows %} Organization-owned runner groups cannot access workflows from a different organization in the enterprise; instead, you must create an enterprise-owned runner group.{% endif %}
 {% data reusables.actions.self-hosted-runner-create-group %}
 {% elsif ghae or ghes < 3.4 %}
 {% data reusables.organizations.navigate-to-org %}
@@ -93,7 +89,7 @@ When creating a group, you must choose a policy that defines which repositories{
 
 ## Enterprise のセルフホストランナーグループを作成する
 
-Enterprise は、セルフホストランナーをグループに追加して、アクセス管理を行うことができます。 Enterprises can create groups of self-hosted runners that are accessible to specific organizations in the enterprise account{% if restrict-groups-to-workflows %} or to specific workflows{% endif %}. Organization owners can then assign additional granular repository{% if restrict-groups-to-workflows %} or workflow{% endif %} access policies to the enterprise runner groups. For information about how to create a self-hosted runner group with the REST API, see the enterprise endpoints in the [{% data variables.product.prodname_actions %} REST API](/rest/reference/actions#self-hosted-runner-groups).
+Enterprise は、セルフホストランナーをグループに追加して、アクセス管理を行うことができます。 Enterprise は、Enterprise アカウント内の特定の Organization がアクセスできるセルフホストランナーのグループを作成できます。 Organization の管理者は、追加の詳細なリポジトリアクセスポリシーを Enterprise ランナーグループに割り当てることができます。 For information about how to create a self-hosted runner group with the REST API, see the enterprise endpoints in the [{% data variables.product.prodname_actions %} REST API](/rest/reference/actions#self-hosted-runner-groups).
 
 セルフホストランナーは、作成時にデフォルトグループに自動的に割り当てられ、一度に 1 つのグループのメンバーになることができます。 登録処理中にランナーを特定のグループに割り当てることも、後でランナーをデフォルトグループからカスタムグループに移動することもできます。
 
@@ -120,21 +116,17 @@ Enterprise は、セルフホストランナーをグループに追加して、
 
    ![ランナーグループのオプションを追加](/assets/images/help/settings/actions-enterprise-account-add-runner-group-options-ae.png)
    {%- endif %}
-{% data reusables.actions.runner-group-assign-policy-workflow %}
 1. [**Save group**] をクリックしてグループを作成し、ポリシーを適用します。
 
 {% endif %}
 
 ## セルフホストランナーグループのアクセスポリシーを変更する
 
-For runner groups in an enterprise, you can change what organizations in the enterprise can access a runner group{% if restrict-groups-to-workflows %} or restrict what workflows a runner group can run{% endif %}. For runner groups in an organization, you can change what repositories in the organization can access a runner group{% if restrict-groups-to-workflows %} or restrict what workflows a runner group can run{% endif %}.
-
-### Changing what organizations or repositories can access a runner group
-
+ランナーグループのアクセスポリシーを更新したり、ランナーグループの名前を変更したりすることができます。
 {% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5091 %}
 {% data reusables.actions.self-hosted-runner-groups-navigate-to-repo-org-enterprise %}
 {% data reusables.actions.settings-sidebar-actions-runner-groups-selection %}
-1. For runner groups in an enterprise, under **Organization access**, modify what organizations can access the runner group. For runner groups in an organization, under **Repository access**, modify what repositories can access the runner group.
+1. Modify the access options, or change the runner group name.
 
    {%- ifversion fpt or ghec or ghes %}
    {% warning %}
@@ -149,35 +141,6 @@ For runner groups in an enterprise, you can change what organizations in the ent
    {%- endif %}
 {% elsif ghae or ghes < 3.4 %}
 {% data reusables.actions.self-hosted-runner-configure-runner-group-access %}
-{% endif %}
-
-{% if restrict-groups-to-workflows %}
-### Changing what workflows can access a runner group
-You can configure a self-hosted runner group to run either selected workflows or all workflows. For example, you might use this setting to protect secrets that are stored on self-hosted runners or to standardize deployment workflows by restricting a runner group to run only a specific reusable workflow. This setting cannot be overridden if you are configuring an organization's runner group that was shared by an enterprise.
-{% data reusables.actions.self-hosted-runner-groups-navigate-to-repo-org-enterprise %}
-{% data reusables.actions.settings-sidebar-actions-runner-groups-selection %}
-1. Under **Workflow access**, select the dropdown menu and click **Selected workflows**.
-1. {% octicon "gear" aria-label="the gear icon" %} をクリックします。
-1. Enter a comma separated list of the workflows that can access the runner group. Use the full path, including the repository name and owner. Pin the workflow to a branch, tag, or full SHA. For example: `octo-org/octo-repo/.github/workflows/build.yml@v2, octo-org/octo-repo/.github/workflows/deploy.yml@d6dc6c96df4f32fa27b039f2084f576ed2c5c2a5, monalisa/octo-test/.github/workflows/test.yml@main`.
-
-   Only jobs directly defined within the selected workflows will have access to the runner group.
-
-   Organization-owned runner groups cannot access workflows from a different organization in the enterprise; instead, you must create an enterprise-owned runner group.
-
-1. [**Save**] をクリックします。
-
-{% endif %}
-
-## Changing the name of a runner group
-
-{% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5091 %}
-{% data reusables.actions.self-hosted-runner-groups-navigate-to-repo-org-enterprise %}
-{% data reusables.actions.settings-sidebar-actions-runner-groups-selection %}
-1. Change the runner group name.
-
-{% elsif ghae or ghes < 3.4 %}
-{% data reusables.actions.self-hosted-runner-configure-runner-group %}
-1. Change the runner group name.
 {% endif %}
 
 {% ifversion ghec or ghes or ghae %}

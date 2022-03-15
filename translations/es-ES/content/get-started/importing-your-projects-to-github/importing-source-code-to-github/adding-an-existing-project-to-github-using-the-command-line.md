@@ -1,25 +1,20 @@
 ---
-title: Adding locally hosted code to GitHub
-intro: 'Learn how to add existing source code or repositories to {% data variables.product.product_name %} from the command line using {% data variables.product.prodname_cli %} or Git Commands. Then, share your code and invite others to work with you.'
+title: Agregar un proyecto existente a GitHub utilizando la línea de comando
+intro: 'Poner tu trabajo existente en {% data variables.product.product_name %} puede permitirte compartir y colaborar de muchas maneras increíbles.'
 redirect_from:
   - /articles/add-an-existing-project-to-github
   - /articles/adding-an-existing-project-to-github-using-the-command-line
   - /github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line
   - /github/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line
-  - /get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line
 versions:
   fpt: '*'
   ghes: '*'
   ghae: '*'
   ghec: '*'
-shortTitle: Add locally hosted code
+shortTitle: Agregar un proyecto localmente
 ---
 
-## About adding existing source code to {% data variables.product.product_name %}
-
-If you have existing source code or repositories stored locally on your computer or private network you can add them to {% data variables.product.product_name %} by typing commands in a terminal. You can do this by typing Git commands directly, or by using {% data variables.product.prodname_cli %}.
-
-{% data variables.product.prodname_cli %} es una herramienta de código abierto para utilizar {% data variables.product.prodname_dotcom %} desde la línea de comandos de tu computadora. El {% data variables.product.prodname_cli %} puede simplificar el proceso de agregar un proyecto existente a {% data variables.product.product_name %} utilizando la línea de comandos. Para aprender más sobre el {% data variables.product.prodname_cli %}, consulta la sección "[Acerca del {% data variables.product.prodname_cli %}](/github-cli/github-cli/about-github-cli)".
+## Acerca de agregar proyectos existentes a {% data variables.product.product_name %}
 
 {% tip %}
 
@@ -29,7 +24,9 @@ If you have existing source code or repositories stored locally on your computer
 
 {% data reusables.repositories.sensitive-info-warning %}
 
-## Adding a local repository to {% data variables.product.product_name %} with {% data variables.product.prodname_cli %}
+## Agregar un proyecto a {% data variables.product.product_name %} con {% data variables.product.prodname_cli %}
+
+{% data variables.product.prodname_cli %} es una herramienta de código abierto para utilizar {% data variables.product.prodname_dotcom %} desde la línea de comandos de tu computadora. El {% data variables.product.prodname_cli %} puede simplificar el proceso de agregar un proyecto existente a {% data variables.product.product_name %} utilizando la línea de comandos. Para aprender más sobre el {% data variables.product.prodname_cli %}, consulta la sección "[Acerca del {% data variables.product.prodname_cli %}](/github-cli/github-cli/about-github-cli)".
 
 1. En la línea de comandos, navega al directorio raíz de tu proyecto.
 1. Inicializar el directorio local como un repositorio de Git.
@@ -50,7 +47,7 @@ If you have existing source code or repositories stored locally on your computer
 
 1. Como alternativa, para saltarte todos los mensajes, proporciona la ruta del repositorio con el marcador `--source` y pasa un marcador de visibilidad (`--public`, `--private` o `--internal`). Por ejemplo, `gh repo create --source=. --public`. Especifica un remoto con el marcador `--remote`. Para subir tus confirmaciones, pasa el marcador `--push`. Para obtener más información sobre los argumentos posibles, consulta el [manual del CLI de GitHub](https://cli.github.com/manual/gh_repo_create).
 
-## Adding a local repository to {% data variables.product.product_name %} using Git
+## Agregar un proyecto a {% data variables.product.product_name %} sin el {% data variables.product.prodname_cli %}
 
 {% mac %}
 
